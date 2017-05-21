@@ -1,0 +1,43 @@
+local bedrockPath='/' if OneOS then OneOS.LoadAPI('/System/API/Bedrock.lua', false)elseif fs.exists(bedrockPath..'/Bedrock')then os.loadAPI(bedrockPath..'/Bedrock')else if http then print('Downloading Bedrock...')local h=http.get('http://pastebin.com/raw.php?i=0MgKNqpN')if h then local f=fs.open(bedrockPath..'/Bedrock','w')f.write(h.readAll())f.close()h.close()os.loadAPI(bedrockPath..'/Bedrock')else error('Failed to download Bedrock. Is your internet working?') end else error('This program needs to download Bedrock to work. Please enable HTTP.') end end if Bedrock then Bedrock.BasePath = bedrockPath Bedrock.ProgramPath = shell.getRunningProgram() end
+
+
+local program = Bedrock:Initialise()
+
+program:Run(function()
+program:GetObject('exitButton').OnClick = function(self, event, side, x, y)
+shell.run("/apps/neonde/home")
+end
+program:GetObject('InternetButton').OnClick = function(self, event, side, x, y)
+program:DisplayAlertWindow('Apps', 'What apps do you want to install/run?', {'Firewolf', 'Back'}, function(value)
+if value == 'Firewolf' then
+program:DisplayAlertWindow('Firewolf', 'What do you want to do with Firewolf?', {'Install', 'Run', 'Remove', 'Back'}, function(value)
+if value == 'Install' then
+shell.run("mkdir /apps/firewolf")
+shell.run("pastebin get nTVm5BZ2 /apps/firewolf/app")
+shell.run("/apps/firewolf/app")
+shell.run("/apps/neonde/home")
+end
+if value == 'Run' then
+shell.run("/apps/firewolf/app")
+shell.run("/apps/neonde/home")
+end
+end)
+end
+end)
+end
+program:GetObject('UtilsButton').OnClick = function(self, event, side, x, y)
+program:DisplayAlertWindow('Apps', 'What apps do you want to install/run?', {'Shell', 'Back'}, function(value)
+if value == 'Shell' then
+program:DisplayAlertWindow('Shell', 'What do you want to do with Shell', {'Run', 'Back'}, function(value)
+if value == 'Run' then
+term.setBackgroundColor(32768)
+term.setTextColor(1)
+shell.run("clear")
+shell.run("shell")
+shell.run("/apps/neonde/home")
+end
+end)
+end
+end)
+end
+end)

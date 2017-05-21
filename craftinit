@@ -1,0 +1,17 @@
+--Craftinit, systemd clone for CC by TheKickstart
+shell.run("clear")
+print("Starting the System")
+print("===================")
+sleep(2)
+shell.run("clear")
+term.write("Welcome to ")
+term.setTextColor(8)
+print("neonOS 1.0")
+term.setTextColor(1)
+--Use this startup hook as an example
+print("Checking Directories")
+shell.run("dir /")
+
+print("Starting Neon Desktop Environment")
+sleep(1)
+shell.run("/apps/neonde/home")
